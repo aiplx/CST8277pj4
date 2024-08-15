@@ -1,0 +1,20 @@
+spring:
+  main:
+    web-application-type: servlet
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: Ov23licZq55o9swnqmyf
+            client-secret: f32008bd54439e683fdd2c2c253a6606d98c7c30
+            scope: read:user,user:email
+            redirect-uri: http://localhost:8080/login/oauth2/code/github
+            client-name: GitHub
+            authorization-grant-type: authorization_code
+        provider:
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+#            user-name-attribute: login

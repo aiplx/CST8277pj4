@@ -15,7 +15,8 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
                        user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
                        user_name VARCHAR(50) NOT NULL,
-                       user_pwd VARCHAR(50) NOT NULL
+                       user_pwd VARCHAR(50) NOT NULL,
+                       github_id BIGINT UNIQUE
 );
 
 -- Create Roles table

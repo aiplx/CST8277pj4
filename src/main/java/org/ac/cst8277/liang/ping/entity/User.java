@@ -27,6 +27,12 @@ public class User {
     @Column(nullable = false, length = 50)
     private String userPwd;
 
+    @Column(unique = true)
+    private Long githubId;  // GitHub user ID
+
+    @OneToMany(mappedBy = "user")
+    private Set<Token> tokens;
+
     @OneToMany(mappedBy = "user")
     private Set<UserRole> userRoles;
 

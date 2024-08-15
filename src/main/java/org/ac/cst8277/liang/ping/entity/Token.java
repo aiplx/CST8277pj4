@@ -19,19 +19,14 @@ public class Token {
     private User user;
 
     private LocalDateTime expirationTime;
-    
-    @Column(nullable = false)
-    private String tokenType;
 
     @PrePersist
     protected void onCreate() {
-        token = UUID.randomUUID().toString();
-        expirationTime = LocalDateTime.now().plusMinutes(15); // Set the expiration time to 15 minutes from now
-        tokenType = "Bearer";
-
+        this.token = UUID.randomUUID().toString();
+        this.expirationTime = LocalDateTime.now().plusMinutes(15);  // Token valid for 15 minutes
     }
 
     public boolean isExpired() {
-        return expirationTime.isBefore(LocalDateTime.now());
+        return LocalDateTime.now().isAfter(this.expirationTime);
     }
 }

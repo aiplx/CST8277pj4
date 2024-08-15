@@ -8,7 +8,7 @@ INSERT INTO roles (role_name) VALUES ('Subscriber');
 -- Inserting users
 INSERT INTO users (user_name, user_pwd) VALUES ('Aiden', 'password');
 INSERT INTO users (user_name, user_pwd) VALUES ('Biden', 'password');
-INSERT INTO users (user_name, user_pwd) VALUES ('Ciden', 'password');
+INSERT INTO users (user_name, user_pwd, github_id) VALUES ('aiplx', 'password', 22771110);
 
 -- Inserting role assignments. Roles IDs for Producer and Subscriber are 1 and 2 respectively
 INSERT INTO user_roles (user_id, role_id) VALUES (1, 1); -- Aiden as Producer
