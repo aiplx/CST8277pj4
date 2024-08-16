@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUserName(String userName);
-    User findByGithubId(Long githubId);  // New method to find by GitHub ID
+    User findByGithubId(Long githubId);  // Method to find by GitHub ID
 }

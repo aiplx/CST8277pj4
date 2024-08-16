@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.ac.cst8277</groupId>
-    <artifactId>pj3</artifactId>
+    <artifactId>pj4</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>pj3</name>
     <description>pj3</description>
@@ -59,6 +59,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
         <!-- Spring Boot Starter Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

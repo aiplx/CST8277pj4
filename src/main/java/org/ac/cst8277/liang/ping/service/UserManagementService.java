@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -65,21 +64,20 @@ public class UserManagementService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getUserPwd(), new ArrayList<>());
     }
 
-    // Method to load an OAuth2 user (from GitHub) and generate a token
+    // Method to load an OAuth2 user and generate a token
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = new DefaultOAuth2UserService().loadUser(userRequest);
 
-        // Get user details from OAuth2 provider (GitHub)
+        // Get user details from OAuth2 provider, GitHub
         String githubLogin = oAuth2User.getAttribute("login");
         Long githubId = oAuth2User.getAttribute("id");
 
-        // Check if user exists in your database
         User user = userRepository.findByGithubId(githubId);
         if (user == null) {
             user = new User();
             user.setUserName(githubLogin);  // Set GitHub login as the username
             user.setGithubId(githubId);  // Set GitHub ID as the unique identifier
-            user.setUserPwd("");  // or set to null as GitHub handles authentication
+            user.setUserPwd("");
             userRepository.save(user);
         }
 
@@ -95,10 +93,11 @@ public class UserManagementService implements UserDetailsService {
         return new DefaultOAuth2User(
                 Collections.singleton(new OAuth2UserAuthority(attributes)),
                 attributes,
-                "login"
+                "login" // Use 'login' as the username
         );
     }
 
+    // Method to store a token for a user
     public void storeTokenForUser(OAuth2User oAuth2User, String token) {
         // Log all attributes
         Map<String, Object> attributes = oAuth2User.getAttributes();
@@ -107,7 +106,7 @@ public class UserManagementService implements UserDetailsService {
         // Use the correct key to retrieve the user's email or login name
         String userName = (String) attributes.get("email");
         if (userName == null) {
-            userName = (String) attributes.get("login"); // GitHub might return 'login' as username
+            userName = (String) attributes.get("login"); // Use 'login' as the username
         }
 
         if (userName != null) {
@@ -120,6 +119,4 @@ public class UserManagementService implements UserDetailsService {
             }
         }
     }
-
-
 }
